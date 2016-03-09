@@ -1,6 +1,10 @@
 import UIKit
 
-class SigninAuthenticationTokenViewController: UIViewController
+/// Step three in the auth link flow. This vc displays a loading spinner and 
+/// status updates as the user is signed into the app with their email address
+/// and one time authentication token from the magic link.
+///
+class SigninLinkAuthViewController: UIViewController
 {
 
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
@@ -13,9 +17,9 @@ class SigninAuthenticationTokenViewController: UIViewController
     var authFailedCallback: SigninCallbackBlock?
 
 
-    class func controller(email: String, token: String, successCallback: SigninCallbackBlock, failureCallback: SigninCallbackBlock) -> SigninAuthenticationTokenViewController {
+    class func controller(email: String, token: String, successCallback: SigninCallbackBlock, failureCallback: SigninCallbackBlock) -> SigninLinkAuthViewController {
         let storyboard = UIStoryboard(name: "Signin", bundle: NSBundle.mainBundle())
-        let controller = storyboard.instantiateViewControllerWithIdentifier("SigninAuthenticationTokenViewController") as! SigninAuthenticationTokenViewController
+        let controller = storyboard.instantiateViewControllerWithIdentifier("SigninLinkAuthViewController") as! SigninLinkAuthViewController
 
         controller.authSuccessCallback = successCallback
         controller.authFailedCallback = failureCallback
@@ -110,7 +114,7 @@ class SigninAuthenticationTokenViewController: UIViewController
 }
 
 
-extension SigninAuthenticationTokenViewController : LoginFacadeDelegate
+extension SigninLinkAuthViewController : LoginFacadeDelegate
 {
     func displayLoginMessage(message: String) {
 
@@ -137,7 +141,7 @@ extension SigninAuthenticationTokenViewController : LoginFacadeDelegate
     }
 }
 
-extension SigninAuthenticationTokenViewController : SigninChildViewController
+extension SigninLinkAuthViewController : SigninChildViewController
 {
     var backButtonEnabled: Bool {
         return false

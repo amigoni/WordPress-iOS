@@ -1,6 +1,9 @@
 import UIKit
 
-class SigninOpenMailViewController: UIViewController
+/// Step two in the auth link flow. This VC prompts the user to open their email
+/// app to look for the emailed authentication link.
+///
+class SigninLinkMailViewController: UIViewController
 {
     @IBOutlet var openMailButton: UIButton!
     @IBOutlet var skipButton: UIButton!
@@ -9,9 +12,9 @@ class SigninOpenMailViewController: UIViewController
     var skipCallback: SigninCallbackBlock?
 
 
-    class func controller(email: String, skipBlock: SigninCallbackBlock) -> SigninOpenMailViewController {
+    class func controller(email: String, skipBlock: SigninCallbackBlock) -> SigninLinkMailViewController {
         let storyboard = UIStoryboard(name: "Signin", bundle: NSBundle.mainBundle())
-        let controller = storyboard.instantiateViewControllerWithIdentifier("SigninOpenMailViewController") as! SigninOpenMailViewController
+        let controller = storyboard.instantiateViewControllerWithIdentifier("SigninLinkMailViewController") as! SigninLinkMailViewController
 
         controller.email = email
         controller.skipCallback = skipBlock
@@ -35,7 +38,7 @@ class SigninOpenMailViewController: UIViewController
     
 }
 
-extension SigninOpenMailViewController : SigninChildViewController {
+extension SigninLinkMailViewController : SigninChildViewController {
     var backButtonEnabled: Bool {
         return true
     }

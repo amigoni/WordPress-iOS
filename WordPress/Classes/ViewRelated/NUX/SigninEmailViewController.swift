@@ -2,6 +2,10 @@ import UIKit
 
 typealias SigninValidateEmailBlock = (String) -> Void
 
+
+/// This vc is the entry point for the normal sign in flow.
+///
+///
 class SigninEmailViewController : UIViewController, UITextFieldDelegate
 {
     var emailValidationSuccessCallback: SigninValidateEmailBlock?
@@ -14,6 +18,9 @@ class SigninEmailViewController : UIViewController, UITextFieldDelegate
 
     let accountServiceRemote = AccountServiceRemoteREST()
 
+
+    /// A convenience method for obtaining an instance of the controller from a storyboard.
+    ///
     class func controller(success: SigninValidateEmailBlock, failure: SigninValidateEmailBlock) -> SigninEmailViewController {
         let storyboard = UIStoryboard(name: "Signin", bundle: NSBundle.mainBundle())
         let controller = storyboard.instantiateViewControllerWithIdentifier("SigninEmailViewController") as! SigninEmailViewController
@@ -24,22 +31,32 @@ class SigninEmailViewController : UIViewController, UITextFieldDelegate
         return controller
     }
 
+
+    // MARK: Lifecycle Methods
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        addOnePasswordButton()
+        configureOnePasswordButton()
     }
-    
+
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         emailTextField.becomeFirstResponder()
     }
-    
-    private func addOnePasswordButton() {
+
+
+    // MARK: - Configuration
+
+
+    private func configureOnePasswordButton() {
+        // TODO: Create the button in IB and just perform assignment.
         let onePasswordButton = UIButton(type: .Custom)
         onePasswordButton.setImage(UIImage(named: "onepassword-wp-button"), forState: .Normal)
-        onePasswordButton.addTarget(self, action: "onePasswordButtonTapped", forControlEvents: .TouchUpInside)
+        onePasswordButton.addTarget(self, action: "handleOnePasswordButtonTapped", forControlEvents: .TouchUpInside)
         onePasswordButton.sizeToFit()
         
         emailTextField.rightView = onePasswordButton
@@ -47,19 +64,10 @@ class SigninEmailViewController : UIViewController, UITextFieldDelegate
         
         emailTextField.rightViewMode = onePasswordFacade.isOnePasswordEnabled() ? .Always : .Never
     }
-    
-    // MARK: - Actions
-    
-    @IBAction func handleSubmitTapped() {
-        if let email = emailTextField.text  {
-            checkEmailAddress(email)
-        }
-    }
-    
-    @IBAction private func onePasswordButtonTapped() {
-    }
 
-    // MARK: -
+
+    // MARK: - Instance Methods
+
 
     func checkEmailAddress(email: String) {
         // TODO: Need some basic validation
@@ -83,6 +91,23 @@ class SigninEmailViewController : UIViewController, UITextFieldDelegate
         submitButton.enabled = !loading
         submitButton.showActivityIndicator(loading)
     }
+
+
+
+    // MARK: - Actions
+
+
+    @IBAction func handleSubmitTapped() {
+        if let email = emailTextField.text  {
+            checkEmailAddress(email)
+        }
+    }
+
+
+    @IBAction private func handleOnePasswordButtonTapped(sender: UIButton) {
+        print("1Password button tapped")
+    }
+
 }
 
 extension SigninEmailViewController : SigninChildViewController {

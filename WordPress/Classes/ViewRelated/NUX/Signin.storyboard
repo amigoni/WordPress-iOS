@@ -154,20 +154,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kya-Hp-LGi" customClass="WPWalkthroughTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kya-Hp-LGi" customClass="WPWalkthroughTextField">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Fse-at-npN"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="leftViewImage" value="icon-username-field"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="handleSubmitTapped" destination="BxT-kY-85j" eventType="primaryActionTriggered" id="9gm-pJ-F0p"/>
+                                    <action selector="handleSubmitTapped" destination="BxT-kY-85j" eventType="primaryActionTriggered" id="Enh-iq-RKa"/>
                                     <outlet property="delegate" destination="BxT-kY-85j" id="SIg-Bb-UbZ"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1D2-6S-8E7" customClass="WPNUXMainButton">
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1D2-6S-8E7" customClass="WPNUXMainButton">
                                 <rect key="frame" x="0.0" y="60" width="320" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="bIT-1N-437"/>
@@ -176,7 +179,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="handleSubmitTapped" destination="BxT-kY-85j" eventType="touchUpInside" id="Uv1-Yj-8od"/>
+                                    <action selector="handleSubmitTapped:" destination="BxT-kY-85j" eventType="touchUpInside" id="BNG-PG-DMc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -215,9 +218,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGt-DX-Cgl" customClass="WPWalkthroughTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGt-DX-Cgl" customClass="WPWalkthroughTextField">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="B8c-yj-bX9"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -229,7 +235,7 @@
                                     <outlet property="delegate" destination="UGr-pL-EXH" id="huP-XK-s0G"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rps-5X-mSQ" customClass="WPNUXMainButton">
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rps-5X-mSQ" customClass="WPNUXMainButton">
                                 <rect key="frame" x="0.0" y="52" width="320" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="22f-0A-9ca"/>
@@ -265,10 +271,10 @@
             </objects>
             <point key="canvasLocation" x="2130" y="46"/>
         </scene>
-        <!--Signin Magic Link View Controller-->
+        <!--Signin Link Request View Controller-->
         <scene sceneID="JIo-h7-mCP">
             <objects>
-                <viewController storyboardIdentifier="SigninMagicLinkViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ip5-4J-eQa" customClass="SigninMagicLinkViewController" customModule="WordPress" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SigninLinkRequestViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ip5-4J-eQa" customClass="SigninLinkRequestViewController" customModule="WordPress" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Cv1-3T-Js8"/>
                         <viewControllerLayoutGuide type="bottom" id="wFU-IR-RxG"/>
@@ -336,10 +342,10 @@
             </objects>
             <point key="canvasLocation" x="1772" y="66"/>
         </scene>
-        <!--Signin Open Mail View Controller-->
+        <!--Signin Link Mail View Controller-->
         <scene sceneID="AZB-bi-L3a">
             <objects>
-                <viewController storyboardIdentifier="SigninOpenMailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RuG-5l-h0O" customClass="SigninOpenMailViewController" customModule="WordPress" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SigninLinkMailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RuG-5l-h0O" customClass="SigninLinkMailViewController" customModule="WordPress" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Cm-CR-eV8"/>
                         <viewControllerLayoutGuide type="bottom" id="kEG-6Q-n3p"/>
@@ -396,10 +402,10 @@
             </objects>
             <point key="canvasLocation" x="1772" y="232"/>
         </scene>
-        <!--Signin Authentication Token View Controller-->
+        <!--Signin Link Auth View Controller-->
         <scene sceneID="8Sx-3P-KLB">
             <objects>
-                <viewController storyboardIdentifier="SigninAuthenticationTokenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WyK-3X-wbg" customClass="SigninAuthenticationTokenViewController" customModule="WordPress" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SigninLinkAuthViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="WyK-3X-wbg" customClass="SigninLinkAuthViewController" customModule="WordPress" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7D5-mt-6B6"/>
                         <viewControllerLayoutGuide type="bottom" id="gdV-2Q-kVo"/>
@@ -531,7 +537,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="300" height="220"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username / Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w3n-Hy-xRo" customClass="WPWalkthroughTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username / Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w3n-Hy-xRo" customClass="WPWalkthroughTextField">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Username / Email"/>
@@ -545,7 +551,7 @@
                                     <outlet property="delegate" destination="xLQ-dS-eGL" id="uJg-rC-FtX"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vU5-BQ-RWy" customClass="WPWalkthroughTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vU5-BQ-RWy" customClass="WPWalkthroughTextField">
                                 <rect key="frame" x="0.0" y="44" width="300" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -559,7 +565,7 @@
                                     <outlet property="delegate" destination="xLQ-dS-eGL" id="hzC-0n-psW"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Site Address (URL)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fr5-9a-e8T" customClass="WPWalkthroughTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Site Address (URL)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fr5-9a-e8T" customClass="WPWalkthroughTextField">
                                 <rect key="frame" x="0.0" y="88" width="300" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -572,7 +578,7 @@
                                     <outlet property="delegate" destination="xLQ-dS-eGL" id="nwg-At-LGk"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcZ-kV-0Nx" customClass="WPNUXMainButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcZ-kV-0Nx" customClass="WPNUXMainButton">
                                 <rect key="frame" x="0.0" y="148" width="300" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="X1f-va-N4K"/>

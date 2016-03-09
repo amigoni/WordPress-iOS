@@ -49,6 +49,7 @@ class SigninViewController : UIViewController
 
     // MARK: - Lifecycle Methods
 
+
     override func viewDidLoad() {
         super.viewDidLoad();
         navigationController?.navigationBarHidden = true
@@ -62,6 +63,17 @@ class SigninViewController : UIViewController
         showSigninEmailViewController()
     }
     
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+
+
+    // MARK: Setup and Configuration
+
+
+    ///
+    ///
     func initializePageViewController() {
         pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         addChildViewController(pageViewController)
@@ -70,11 +82,6 @@ class SigninViewController : UIViewController
         pageViewController.didMoveToParentViewController(self)
         
         containerView.pinSubviewToAllEdges(pageViewController.view)
-
-    }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
     }
 
 
@@ -133,6 +140,9 @@ class SigninViewController : UIViewController
     }
 
 
+    // MARK: - Instance Methods
+
+
     /// Checks if the signin vc modal should show a back button. The back button 
     /// visible when there is more than one child vc presented, and there is not
     /// a case where a `SigninChildViewController.backButtonEnabled` in the stack 
@@ -168,9 +178,6 @@ class SigninViewController : UIViewController
     }
 
 
-    // MARK: - Instance Methods
-
-
     /// Call this method passing a one-time token to sign in to wpcom.
     ///
     /// - Parameters:
@@ -183,9 +190,12 @@ class SigninViewController : UIViewController
             return
         }
 
-        showAuthenticationController(email, token: token)
+        showLinkAuthController(email, token: token)
     }
-    
+
+
+    ///
+    ///
     private func finishSignIn() {
         // Check if there is an active WordPress.com account. If not, switch tab bar
         // away from Reader to blog list view
@@ -197,6 +207,7 @@ class SigninViewController : UIViewController
             WPTabBarController.sharedInstance().showMySitesTab()
         }
     }
+
 
     // MARK: - Controller Factories
 
@@ -241,7 +252,9 @@ class SigninViewController : UIViewController
         pushChildViewController(controller, animated: true)
     }
 
+
     /// Shows the 2FA form.
+    ///
     func showSignin2FAViewController(loginFields: LoginFields) {
         let controller = SignIn2FAViewController.controller(loginFields, success:  { [weak self] in
             self?.finishSignIn()
@@ -251,13 +264,14 @@ class SigninViewController : UIViewController
         pushChildViewController(controller, animated: true)
     }
 
+
     /// Shows the "email link" form.
     ///
     /// - Parameters:
     ///     - email: The user's email address.
     ///
-    func showSigninMagicLinkViewController(email: String) {
-        let controller = SigninMagicLinkViewController.controller(email,
+    func showSigninLinkRequestViewController(email: String) {
+        let controller = SigninLinkRequestViewController.controller(email,
             requestLinkBlock: {  [weak self] in
                 self?.didRequestAuthenticationLink(email)
             },
@@ -299,11 +313,11 @@ class SigninViewController : UIViewController
     /// - Parameters:
     ///     - email: The user's email address.
     ///
-    func showOpenMailViewController(email: String) {
+    func showLinkMailViewController(email: String) {
         // Save email in nsuserdefaults and retrieve it if necessary
         NSUserDefaults.standardUserDefaults().setObject(email, forKey: AuthenticationEmailKey)
 
-        let controller = SigninOpenMailViewController.controller(email, skipBlock: {[weak self] in
+        let controller = SigninLinkMailViewController.controller(email, skipBlock: {[weak self] in
             self?.signinWithPassword(email)
         })
 
@@ -318,8 +332,8 @@ class SigninViewController : UIViewController
     ///     - email: The user's email address.
     ///     - token: A one time authentication token that is used in lieu of a password.
     ///
-    func showAuthenticationController(email: String, token: String) {
-        let controller = SigninAuthenticationTokenViewController.controller(email,
+    func showLinkAuthController(email: String, token: String) {
+        let controller = SigninLinkAuthViewController.controller(email,
             token: token,
             successCallback: { [weak self] in
                 self?.dismissViewControllerAnimated(true, completion: nil)
@@ -335,7 +349,7 @@ class SigninViewController : UIViewController
 
 
     func emailValidationSuccess(email: String) {
-        showSigninMagicLinkViewController(email)
+        showSigninLinkRequestViewController(email)
     }
 
     func emailValidationFailure(email: String) {
@@ -343,7 +357,7 @@ class SigninViewController : UIViewController
     }
     
     func didRequestAuthenticationLink(email: String) {
-        showOpenMailViewController(email)
+        showLinkMailViewController(email)
     }
 
     func signinWithPassword(email: String) {
@@ -354,21 +368,16 @@ class SigninViewController : UIViewController
     // MARK: - Actions
 
     @IBAction func handleCreateAccountTapped(sender: UIButton) {
-        func nextVCName() -> String {
-            if childViewControllerStack.count % 2 != 0 {
-                return "SignIn2FAViewController"
-            } else {
-                return "SigninSelfHostedViewController"
-            }
-        }
-        let storyboard = UIStoryboard(name: "SignInSelfHosted", bundle: NSBundle.mainBundle())
-        let vc = storyboard.instantiateViewControllerWithIdentifier(nextVCName())
-        pushChildViewController(vc, animated: true)
+        let controller = CreateAccountAndBlogViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 
 
     @IBAction func handleToggleSigninTapped(sender: UIButton) {
-        popChildViewController(true)
+        let storyboard = UIStoryboard(name: "Signin", bundle: NSBundle.mainBundle())
+        let vc = storyboard.instantiateViewControllerWithIdentifier("SigninSelfHostedViewController")
+        pushChildViewController(vc, animated: true)
+
     }
 
 

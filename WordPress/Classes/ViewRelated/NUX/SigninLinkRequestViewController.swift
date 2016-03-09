@@ -1,6 +1,10 @@
 import UIKit
 
-class SigninMagicLinkViewController: UIViewController
+/// Step one in the auth link flow. This VC displays a form to request a "magic" 
+/// authentication link be emailed to the user.  Allows the user to signin via 
+/// email instead of their password.
+///
+class SigninLinkRequestViewController: UIViewController
 {
 
     @IBOutlet var label: UILabel!
@@ -12,9 +16,9 @@ class SigninMagicLinkViewController: UIViewController
     var signinWithPasswordCallback: SigninCallbackBlock?
     var email: String?
 
-    class func controller(email: String, requestLinkBlock: SigninCallbackBlock, signinWithPasswordBlock: SigninCallbackBlock) -> SigninMagicLinkViewController {
+    class func controller(email: String, requestLinkBlock: SigninCallbackBlock, signinWithPasswordBlock: SigninCallbackBlock) -> SigninLinkRequestViewController {
         let storyboard = UIStoryboard(name: "Signin", bundle: NSBundle.mainBundle())
-        let controller = storyboard.instantiateViewControllerWithIdentifier("SigninMagicLinkViewController") as! SigninMagicLinkViewController
+        let controller = storyboard.instantiateViewControllerWithIdentifier("SigninLinkRequestViewController") as! SigninLinkRequestViewController
 
         controller.email = email
         controller.didRequestLinkCallback = requestLinkBlock
@@ -74,7 +78,7 @@ class SigninMagicLinkViewController: UIViewController
 }
 
 
-extension SigninMagicLinkViewController : SigninChildViewController {
+extension SigninLinkRequestViewController : SigninChildViewController {
     var backButtonEnabled: Bool {
         return true
     }

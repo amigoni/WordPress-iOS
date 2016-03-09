@@ -634,11 +634,11 @@
 		E64384831C628FCC0052ADB5 /* WPStyleGuide+Sharing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64384821C628FCC0052ADB5 /* WPStyleGuide+Sharing.swift */; };
 		E64F8B4A1C90BD60004D8760 /* Signin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E64F8B401C90BD60004D8760 /* Signin.storyboard */; };
 		E64F8B4B1C90BD60004D8760 /* SignIn2FAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B411C90BD60004D8760 /* SignIn2FAViewController.swift */; };
-		E64F8B4C1C90BD60004D8760 /* SigninAuthenticationTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B421C90BD60004D8760 /* SigninAuthenticationTokenViewController.swift */; };
+		E64F8B4C1C90BD60004D8760 /* SigninLinkAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B421C90BD60004D8760 /* SigninLinkAuthViewController.swift */; };
 		E64F8B4D1C90BD60004D8760 /* SigninChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B431C90BD60004D8760 /* SigninChildViewController.swift */; };
 		E64F8B4E1C90BD60004D8760 /* SigninEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B441C90BD60004D8760 /* SigninEmailViewController.swift */; };
-		E64F8B4F1C90BD60004D8760 /* SigninMagicLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B451C90BD60004D8760 /* SigninMagicLinkViewController.swift */; };
-		E64F8B501C90BD60004D8760 /* SigninOpenMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B461C90BD60004D8760 /* SigninOpenMailViewController.swift */; };
+		E64F8B4F1C90BD60004D8760 /* SigninLinkRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B451C90BD60004D8760 /* SigninLinkRequestViewController.swift */; };
+		E64F8B501C90BD60004D8760 /* SigninLinkMailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B461C90BD60004D8760 /* SigninLinkMailViewController.swift */; };
 		E64F8B511C90BD60004D8760 /* SigninPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B471C90BD60004D8760 /* SigninPasswordViewController.swift */; };
 		E64F8B521C90BD60004D8760 /* SigninSelfHostedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B481C90BD60004D8760 /* SigninSelfHostedViewController.swift */; };
 		E64F8B531C90BD60004D8760 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F8B491C90BD60004D8760 /* SigninViewController.swift */; };
@@ -1793,11 +1793,11 @@
 		E64384821C628FCC0052ADB5 /* WPStyleGuide+Sharing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WPStyleGuide+Sharing.swift"; sourceTree = "<group>"; };
 		E64F8B401C90BD60004D8760 /* Signin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signin.storyboard; sourceTree = "<group>"; };
 		E64F8B411C90BD60004D8760 /* SignIn2FAViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignIn2FAViewController.swift; sourceTree = "<group>"; };
-		E64F8B421C90BD60004D8760 /* SigninAuthenticationTokenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninAuthenticationTokenViewController.swift; sourceTree = "<group>"; };
+		E64F8B421C90BD60004D8760 /* SigninLinkAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninLinkAuthViewController.swift; sourceTree = "<group>"; };
 		E64F8B431C90BD60004D8760 /* SigninChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninChildViewController.swift; sourceTree = "<group>"; };
 		E64F8B441C90BD60004D8760 /* SigninEmailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninEmailViewController.swift; sourceTree = "<group>"; };
-		E64F8B451C90BD60004D8760 /* SigninMagicLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninMagicLinkViewController.swift; sourceTree = "<group>"; };
-		E64F8B461C90BD60004D8760 /* SigninOpenMailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninOpenMailViewController.swift; sourceTree = "<group>"; };
+		E64F8B451C90BD60004D8760 /* SigninLinkRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninLinkRequestViewController.swift; sourceTree = "<group>"; };
+		E64F8B461C90BD60004D8760 /* SigninLinkMailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninLinkMailViewController.swift; sourceTree = "<group>"; };
 		E64F8B471C90BD60004D8760 /* SigninPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninPasswordViewController.swift; sourceTree = "<group>"; };
 		E64F8B481C90BD60004D8760 /* SigninSelfHostedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninSelfHostedViewController.swift; sourceTree = "<group>"; };
 		E64F8B491C90BD60004D8760 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
@@ -2753,12 +2753,12 @@
 				E64F8B401C90BD60004D8760 /* Signin.storyboard */,
 				E64F8B491C90BD60004D8760 /* SigninViewController.swift */,
 				E64F8B431C90BD60004D8760 /* SigninChildViewController.swift */,
-				E64F8B411C90BD60004D8760 /* SignIn2FAViewController.swift */,
-				E64F8B421C90BD60004D8760 /* SigninAuthenticationTokenViewController.swift */,
 				E64F8B441C90BD60004D8760 /* SigninEmailViewController.swift */,
-				E64F8B451C90BD60004D8760 /* SigninMagicLinkViewController.swift */,
-				E64F8B461C90BD60004D8760 /* SigninOpenMailViewController.swift */,
+				E64F8B451C90BD60004D8760 /* SigninLinkRequestViewController.swift */,
+				E64F8B461C90BD60004D8760 /* SigninLinkMailViewController.swift */,
+				E64F8B421C90BD60004D8760 /* SigninLinkAuthViewController.swift */,
 				E64F8B471C90BD60004D8760 /* SigninPasswordViewController.swift */,
+				E64F8B411C90BD60004D8760 /* SignIn2FAViewController.swift */,
 				E64F8B481C90BD60004D8760 /* SigninSelfHostedViewController.swift */,
 			);
 			path = NUX;
@@ -4955,7 +4955,7 @@
 				852416CF1A12EBDD0030700C /* AppRatingUtility.m in Sources */,
 				B5CC05F91962186D00975CAC /* Meta.m in Sources */,
 				E6431DE51C4E892900FD8D90 /* SharingConnectionsViewController.m in Sources */,
-				E64F8B4C1C90BD60004D8760 /* SigninAuthenticationTokenViewController.swift in Sources */,
+				E64F8B4C1C90BD60004D8760 /* SigninLinkAuthViewController.swift in Sources */,
 				E1EBC3711C118EB200F638E0 /* WPImmuTableCells.swift in Sources */,
 				5D20A6531982D56600463A91 /* FollowedSitesViewController.m in Sources */,
 				5D8D53F119250412003C8859 /* BlogSelectorViewController.m in Sources */,
@@ -5151,10 +5151,10 @@
 				E1D95EB817A28F5E00A3E9F3 /* WPActivityDefaults.m in Sources */,
 				591A428F1A6DC6F2003807A6 /* WPGUIConstants.m in Sources */,
 				85D790AA1AE5C6790033AE83 /* MixpanelProxy.m in Sources */,
-				E64F8B501C90BD60004D8760 /* SigninOpenMailViewController.swift in Sources */,
+				E64F8B501C90BD60004D8760 /* SigninLinkMailViewController.swift in Sources */,
 				E1B912831BB01047003C25B9 /* PeopleRoleBadgeView.swift in Sources */,
 				E120D90E1B09D8C300FB9A6E /* JetpackState.m in Sources */,
-				E64F8B4F1C90BD60004D8760 /* SigninMagicLinkViewController.swift in Sources */,
+				E64F8B4F1C90BD60004D8760 /* SigninLinkRequestViewController.swift in Sources */,
 				B5416D011C17693B00006DD8 /* UIApplication+Helpers.m in Sources */,
 				5DBFC8A71A9BC34F00E00DE4 /* PostListViewController.m in Sources */,
 				5D08B90419648C3400D5B381 /* ReaderSubscriptionViewController.m in Sources */,
