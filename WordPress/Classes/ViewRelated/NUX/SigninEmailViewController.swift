@@ -12,11 +12,10 @@ class SigninEmailViewController : UIViewController, UITextFieldDelegate
     var emailValidationFailureCallback: SigninValidateEmailBlock?
 
     lazy var onePasswordFacade = OnePasswordFacade()
+    lazy var accountServiceRemote = AccountServiceRemoteREST()
 
     @IBOutlet var emailTextField: WPWalkthroughTextField!
     @IBOutlet var submitButton: WPNUXMainButton!
-
-    let accountServiceRemote = AccountServiceRemoteREST()
 
 
     /// A convenience method for obtaining an instance of the controller from a storyboard.
@@ -85,7 +84,8 @@ class SigninEmailViewController : UIViewController, UITextFieldDelegate
                 self?.setLoading(false)                
         })
     }
-    
+
+
     private func setLoading(loading: Bool) {
         emailTextField.enabled = !loading
         submitButton.enabled = !loading
