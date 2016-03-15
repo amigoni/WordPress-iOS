@@ -4983,7 +4983,6 @@
 				B5CC05F91962186D00975CAC /* Meta.m in Sources */,
 				E6431DE51C4E892900FD8D90 /* SharingConnectionsViewController.m in Sources */,
 				E64F8B4C1C90BD60004D8760 /* SigninLinkAuthViewController.swift in Sources */,
-				E1EBC3711C118EB200F638E0 /* WPImmuTableCells.swift in Sources */,
 				5D20A6531982D56600463A91 /* FollowedSitesViewController.m in Sources */,
 				5D8D53F119250412003C8859 /* BlogSelectorViewController.m in Sources */,
 				5D3D559718F88C3500782892 /* ReaderPostService.m in Sources */,
