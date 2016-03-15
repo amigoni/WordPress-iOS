@@ -9,6 +9,11 @@ enum FeatureFlag: Int {
     case Plans
     /// New Signin
     case Signin
+    /// Me > My Profile
+    case MyProfile
+    /// Me > Account Settings
+    /// Account Settings already existed prior to 6.0, and included application settings
+    case AccountSettings
     /// Returns a boolean indicating if the feature is enabled
     var enabled: Bool {
         switch self {
@@ -17,6 +22,10 @@ enum FeatureFlag: Int {
         case .Plans:
             return build(.Debug)
         case .Signin:
+            return build(.Debug)
+        case .MyProfile, .AccountSettings:
+            // Disabled until we figure out this:
+            // https://github.com/wordpress-mobile/WordPress-iOS/issues/4888
             return build(.Debug)
         }
     }
