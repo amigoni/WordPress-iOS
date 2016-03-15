@@ -1,4 +1,7 @@
 import UIKit
+import NSURL_IDN
+import WordPressComAnalytics
+import wpxmlrpc
 
 enum SigninFailureError: ErrorType {
     case NeedsMultifactorCode
@@ -16,15 +19,15 @@ typealias SigninFailureBlock = (error: ErrorType) -> Void
 class SigninViewController : UIViewController
 {
     @IBOutlet var containerView: UIView!
-    @IBOutlet var helpButton: UIButton!
     @IBOutlet var backButton: UIButton!
     @IBOutlet var cancelButton: UIButton!
-    @IBOutlet var icon: UIImageView!
-    @IBOutlet var toggleSigninButton: UIButton!
+    @IBOutlet var wpcomSigninButton: UIButton!
+    @IBOutlet var selfHostedSigninButton: UIButton!
     @IBOutlet var createAccountButton: UIButton!
-
     var pageViewController: UIPageViewController!
-    
+
+    let loginFields = LoginFields()
+
     // This key is used with NSUserDefaults to persist an email address while the
     // app is suspended and the mail app is launched.
     let AuthenticationEmailKey = "AuthenticationEmailKey"
@@ -58,9 +61,7 @@ class SigninViewController : UIViewController
         cancelButton.sizeToFit()
         configureBackAndCancelButtons(false)
 
-        initializePageViewController()
-        
-        showSigninEmailViewController()
+        presentWPComSigninFlow()
     }
     
 
@@ -69,19 +70,55 @@ class SigninViewController : UIViewController
     }
 
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        pageViewController = segue.destinationViewController as? UIPageViewController
+    }
+
+
     // MARK: Setup and Configuration
 
 
-    ///
-    ///
-    func initializePageViewController() {
-        pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
-        addChildViewController(pageViewController)
-        containerView.addSubview(pageViewController.view)
-        pageViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        pageViewController.didMoveToParentViewController(self)
-        
-        containerView.pinSubviewToAllEdges(pageViewController.view)
+    // Sign up flow entry points.
+
+    // Default flow. Sign into wpcom begining with their email address.
+    func presentWPComSigninFlow() {
+        wpcomSigninButton.hidden = true
+        selfHostedSigninButton.hidden = false
+        createAccountButton.hidden = false
+
+        showSigninEmailViewController()
+    }
+
+
+    // Sign in to a self hosted blog
+    func presentSelfHostedSigninFlow() {
+        wpcomSigninButton.hidden = false
+        selfHostedSigninButton.hidden = true
+        createAccountButton.hidden = false
+
+        showSelfHostedSignInViewController("")
+    }
+
+
+    // Create a new wpcom account and blog
+    func presentCreateAccountFlow() {
+        wpcomSigninButton.hidden = false
+        selfHostedSigninButton.hidden = false
+        createAccountButton.hidden = true
+
+        // TODO:
+        let controller = CreateAccountAndBlogViewController()
+        navigationController?.pushViewController(controller, animated: true)
+    }
+
+
+    // Handle returning to the app after obtaining a "magic" auth link
+    func presentLinkValidationFlow() {
+        wpcomSigninButton.hidden = false
+        selfHostedSigninButton.hidden = false
+        createAccountButton.hidden = false
+
+        showSigninLinkRequestViewController("")
     }
 
 
@@ -194,7 +231,7 @@ class SigninViewController : UIViewController
     }
 
 
-    ///
+    /// Call this as the final step in any sign up flow.
     ///
     private func finishSignIn() {
         // Check if there is an active WordPress.com account. If not, switch tab bar
@@ -206,6 +243,86 @@ class SigninViewController : UIViewController
         if defaultAccount == nil {
             WPTabBarController.sharedInstance().showMySitesTab()
         }
+    }
+
+
+    /// Displays the support vc.
+    ///
+    func displaySupportViewController() {
+        let controller = SupportViewController()
+        let navController = UINavigationController(rootViewController: controller)
+        navController.navigationBar.translucent = false
+        navController.modalPresentationStyle = .FormSheet
+
+        navigationController?.presentViewController(navController, animated: true, completion: nil)
+    }
+
+
+    /// Displays the Helpshift conversation feature.
+    ///
+    func displayHelpshiftConversationView() {
+        let metaData = [
+            "Source": "Failed login",
+            "Username": loginFields.username,
+            "SiteURL": loginFields.siteUrl
+        ]
+        HelpshiftSupport.showConversation(self, withOptions: [HelpshiftSupportCustomMetadataKey: metaData])
+        WPAppAnalytics.track(.SupportOpenedHelpshiftScreen)
+    }
+
+
+    /// Presents an instance of WPWebViewController set to the specified URl. 
+    /// Accepts a username and password if authentication is needed. 
+    ///
+    /// - Parameters:
+    ///     - url: The URL to view.
+    ///     - username: Optional. A username if authentication is needed. 
+    ///     - password: Optional. A password if authentication is needed.
+    ///
+    func displayWebviewForURL(url: NSURL, username: String?, password: String?) {
+        let controller = WPWebViewController(URL: url)
+
+        if let username = username,
+            password = password
+        {
+            controller.username = username
+            controller.password = password
+        }
+        let navController = UINavigationController(rootViewController: controller)
+        navigationController?.presentViewController(navController, animated: true, completion: nil)
+    }
+
+
+    /// The base site URL path derived from `loginFields.siteUrl`
+    ///
+    /// - Returns: The base url path or an empty string.
+    ///
+    func baseSiteURL() -> String {
+        guard let siteURL = NSURL(string: NSURL.IDNDecodedURL(loginFields.siteUrl)) else {
+            return ""
+        }
+
+        var path = siteURL.absoluteString.lowercaseString
+
+        if path.isWordPressComPath() {
+            if siteURL.scheme.characters.count == 0 {
+                path = "https://\(path)"
+            } else if path.rangeOfString("http://") != nil {
+                path = path.stringByReplacingOccurrencesOfString("http://", withString: "https://")
+            }
+        } else if siteURL.scheme.characters.count == 0 {
+            path = "http://\(path)"
+        }
+
+        let wpLogin = try! NSRegularExpression(pattern: "/wp-login.php$", options: .CaseInsensitive)
+        let wpadmin = try! NSRegularExpression(pattern: "/wp-admin/?$", options: .CaseInsensitive)
+        let trailingSlash = try! NSRegularExpression(pattern: "/?$", options: .CaseInsensitive)
+
+        path = wpLogin.stringByReplacingMatchesInString(path, options: .ReportCompletion, range: NSRange(location: 0, length: path.characters.count), withTemplate: "")
+        path = wpadmin.stringByReplacingMatchesInString(path, options: .ReportCompletion, range: NSRange(location: 0, length: path.characters.count), withTemplate: "")
+        path = trailingSlash.stringByReplacingMatchesInString(path, options: .ReportCompletion, range: NSRange(location: 0, length: path.characters.count), withTemplate: "")
+        
+        return path
     }
 
 
@@ -223,7 +340,7 @@ class SigninViewController : UIViewController
                 self?.emailValidationFailure(email)
             })
 
-        pushChildViewController(controller, animated: false)
+        setChildViewController(controller)
     }
 
 
@@ -283,31 +400,6 @@ class SigninViewController : UIViewController
     }
 
 
-    /// Shows the self hosted form which includes, username/email, password and url fields.
-    ///
-    /// - Parameters:
-    ///     - email: The user's email address.
-    ///
-    func showSelfHostedSignInViewController(email: String) {
-        let controller = SigninSelfHostedViewController.controller(email, success: { [weak self] in
-            self?.finishSignIn()
-            self?.dismissViewControllerAnimated(true, completion: nil)
-        }, failure: { [weak self] error in
-            switch (error as! SigninFailureError) {
-            case .NeedsMultifactorCode:
-                if let currentChild = self?.currentChildViewController as? SigninChildViewController,
-                    let loginFields = currentChild.loginFields {
-                        self?.showSignin2FAViewController(loginFields)
-                }
-            }
-            
-            DDLogSwift.logError("Error: \(error)")
-        })
-        
-        pushChildViewController(controller, animated: true)
-    }
-
-
     /// Shows the "open mail" form.
     ///
     /// - Parameters:
@@ -341,7 +433,37 @@ class SigninViewController : UIViewController
             failureCallback: {
                 // TODO: handle auth failure callback
         })
-        pushChildViewController(controller, animated: true)
+        setChildViewController(controller)
+    }
+
+
+    /// Shows the self hosted form which includes, username/email, password and url fields.
+    ///
+    /// - Parameters:
+    ///     - email: The user's email address.
+    ///
+    func showSelfHostedSignInViewController(email: String) {
+        let controller = SigninSelfHostedViewController.controller(email,
+            success: { [weak self] in
+                self?.finishSignIn()
+                self?.dismissViewControllerAnimated(true, completion: nil)
+            },
+            failure: { [weak self] error in
+                if error is NSError {
+                    self?.displayError(error as NSError)
+                    return
+                }
+
+                switch (error as! SigninFailureError) {
+                case .NeedsMultifactorCode:
+                    if let currentChild = self?.currentChildViewController as? SigninChildViewController,
+                        let loginFields = currentChild.loginFields {
+                            self?.showSignin2FAViewController(loginFields)
+                    }
+                }
+            })
+
+        setChildViewController(controller)
     }
 
 
@@ -352,13 +474,16 @@ class SigninViewController : UIViewController
         showSigninLinkRequestViewController(email)
     }
 
+
     func emailValidationFailure(email: String) {
         showSelfHostedSignInViewController(email)
     }
     
+
     func didRequestAuthenticationLink(email: String) {
         showLinkMailViewController(email)
     }
+
 
     func signinWithPassword(email: String) {
         showSigninPasswordViewController(email)
@@ -367,27 +492,24 @@ class SigninViewController : UIViewController
 
     // MARK: - Actions
 
+
     @IBAction func handleCreateAccountTapped(sender: UIButton) {
-        let controller = CreateAccountAndBlogViewController()
-        navigationController?.pushViewController(controller, animated: true)
+        presentCreateAccountFlow()
     }
 
 
-    @IBAction func handleToggleSigninTapped(sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Signin", bundle: NSBundle.mainBundle())
-        let vc = storyboard.instantiateViewControllerWithIdentifier("SigninSelfHostedViewController")
-        pushChildViewController(vc, animated: true)
+    @IBAction func handleWPComSigninButtonTapped(sender: UIButton) {
+        presentWPComSigninFlow()
+    }
 
+
+    @IBAction func handleSelfHostedSigninButtonTapped(sender: UIButton) {
+        presentSelfHostedSigninFlow()
     }
 
 
     @IBAction func handleHelpTapped(sender: UIButton) {
-        let controller = SupportViewController()
-        let navController = UINavigationController(rootViewController: controller)
-        navController.navigationBar.translucent = false
-        navController.modalPresentationStyle = .FormSheet
-
-        navigationController?.presentViewController(navController, animated: true, completion: nil)
+        displaySupportViewController()
     }
 
 
@@ -406,17 +528,232 @@ class SigninViewController : UIViewController
     }
 
 
+    // MARK: - Error Handling
+
+
+    typealias OverlayViewCallback = ((WPWalkthroughOverlayView!) -> Void)
+
+
+    /// Displays an instance of WPWalkthroughOverlayView configured to show an error message.
+    /// 
+    /// - Parameters:
+    ///     - message: The error message to display to the user. 
+    ///     - firstButtonText: Optional. The label for the bottom right button.
+    ///     - firstButtonCallback: Optional. The callback block to execute when the first button is tapped.
+    ///     - secondButtonText: Optional. The label for the bottom left button.
+    ///     - secondButtonCallback: The callback block to execute when the second button is tapped.
+    ///     - accessibilityIdentifier: Optional. Used to identify the view to accessibiity features.
+    ///
+    func displayOverlayView(message: String, firstButtonText: String?, firstButtonCallback: OverlayViewCallback?, secondButtonText: String?, secondButtonCallback: OverlayViewCallback, accessibilityIdentifier: String?) {
+        assert(message.characters.count > 0)
+
+        let dismissBlock: OverlayViewCallback = { (overlayView) in
+            overlayView.dismiss()
+        }
+
+        let overlayView = WPWalkthroughOverlayView(frame: view.bounds)
+        overlayView.overlayMode = .GrayOverlayViewOverlayModeTwoButtonMode
+        overlayView.overlayTitle = NSLocalizedString("Sorry, we can't log you in.", comment: "")
+        overlayView.overlayDescription = message
+        overlayView.primaryButtonText = NSLocalizedString("OK", comment: "")
+        overlayView.secondaryButtonText = NSLocalizedString("Need Help?", comment: "")
+        overlayView.dismissCompletionBlock = dismissBlock
+        overlayView.primaryButtonCompletionBlock = dismissBlock
+        overlayView.secondaryButtonCompletionBlock = secondButtonCallback
+
+        if firstButtonText != nil {
+            overlayView.primaryButtonText = firstButtonText!
+        }
+
+        if secondButtonText != nil {
+            overlayView.secondaryButtonText = secondButtonText!
+        }
+
+        if firstButtonCallback != nil {
+            overlayView.primaryButtonCompletionBlock = firstButtonCallback!
+        }
+
+        if let accessibilityIdentifier = accessibilityIdentifier {
+            overlayView.accessibilityIdentifier = accessibilityIdentifier
+        }
+
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(overlayView)
+        view.pinSubviewToAllEdges(overlayView)
+    }
+
+
+    /// Display the specified error in a WPWalkthroughOverlayView. 
+    /// The view is configured differently depending on the kind of error.
+    ///
+    /// - Parameters:
+    ///     - error: An NSError instance
+    ///
+    func displayError(error: NSError) {
+        var message = error.localizedDescription
+
+        DDLogSwift.logError(message)
+
+        if error.domain != WPXMLRPCFaultErrorDomain && error.code != NSURLErrorBadURL {
+            if HelpshiftUtils.isHelpshiftEnabled() {
+                displayGenericErrorMessageWithHelpshiftButton(message)
+
+            } else {
+                displayGenericErrorMessage(message)
+            }
+            return
+        }
+
+        if error.code == 403 {
+            message = NSLocalizedString("Incorrect username or password. Please try entering your login details again.", comment: "")
+        }
+
+        if message.trim().characters.count == 0 {
+            message = NSLocalizedString("Sign in failed. Please try again.", comment: "")
+        }
+
+        if error.code == 405 {
+            displayErrorMessageForXMLRPC(message)
+        } else  if error.code == NSURLErrorBadURL {
+            displayErrorMessageForBadURL(message)
+        } else {
+            displayGenericErrorMessage(message)
+        }
+    }
+
+
+    /// Shows a WPWalkthroughOverlayView for a generic error message.
+    ///
+    /// - Parameters:
+    ///     - message: The error message to show.
+    ///
+    func displayGenericErrorMessage(message: String) {
+        let callback: OverlayViewCallback = { [weak self] (overlayView) in
+            overlayView.dismiss()
+            self?.displaySupportViewController()
+        }
+
+        displayOverlayView(message,
+            firstButtonText: nil,
+            firstButtonCallback: nil,
+            secondButtonText: nil,
+            secondButtonCallback: callback,
+            accessibilityIdentifier: "GenericErrorMessage")
+    }
+
+
+    /// Shows a WPWalkthroughOverlayView for a generic error message. The view
+    /// is configured so the user can open Helpshift for assistance.
+    ///
+    /// - Parameters:
+    ///     - message: The error message to show.
+    ///
+    func displayGenericErrorMessageWithHelpshiftButton(message: String) {
+        let callback: OverlayViewCallback = { [unowned self] (overlayView) in
+            overlayView.dismiss()
+            self.displayHelpshiftConversationView()
+        }
+
+        displayOverlayView(message,
+            firstButtonText: nil,
+            firstButtonCallback: nil,
+            secondButtonText: NSLocalizedString("Contact Us", comment:"The text on the button at the bottom of the error message when a user has repeated trouble logging in"),
+            secondButtonCallback: callback,
+            accessibilityIdentifier: "GenericErrorMessage")
+    }
+
+
+    /// Shows a WPWalkthroughOverlayView for an XML-RPC error message.
+    ///
+    /// - Parameters:
+    ///     - message: The error message to show.
+    ///
+    func displayErrorMessageForXMLRPC(message: String) {
+        let firstCallback: OverlayViewCallback = { [unowned self] (overlayView) in
+            overlayView.dismiss()
+
+            var path: NSString
+            let regex = try! NSRegularExpression(pattern: "http\\S+writing.php", options: .CaseInsensitive)
+            let rng = regex.rangeOfFirstMatchInString(message, options: .ReportCompletion, range: NSRange(location: 0, length: message.characters.count))
+            if rng.location == NSNotFound {
+                path = self.baseSiteURL()
+                path = path.stringByReplacingOccurrencesOfString("xmlrpc.php", withString: "")
+                path = path.stringByAppendingString("/wp-admin/options-writing.php")
+            } else {
+                path = NSString(string: message).substringWithRange(rng)
+            }
+
+            self.displayWebviewForURL(NSURL(string: path as String)!, username: self.loginFields.username, password: self.loginFields.password)
+        }
+
+        let secondCallback: OverlayViewCallback = { [unowned self] (overlayView) in
+            overlayView.dismiss()
+            self.displaySupportViewController()
+        }
+
+        displayOverlayView(message,
+            firstButtonText: NSLocalizedString("Enable Now", comment: ""),
+            firstButtonCallback: firstCallback,
+            secondButtonText: nil,
+            secondButtonCallback: secondCallback,
+            accessibilityIdentifier: nil)
+    }
+
+
+    /// Shows a WPWalkthroughOverlayView for a bad url error message.
+    ///
+    /// - Parameters:
+    ///     - message: The error message to show.
+    ///
+    func displayErrorMessageForBadURL(message: String) {
+        let callback: OverlayViewCallback = { [unowned self] (overlayView) in
+            overlayView.dismiss()
+            self.displayWebviewForURL(NSURL(string: "https://apps.wordpress.org/support/#faq-ios-3")!, username: nil, password: nil)
+        }
+
+        displayOverlayView(message,
+            firstButtonText: nil,
+            firstButtonCallback: nil,
+            secondButtonText: nil,
+            secondButtonCallback: callback,
+            accessibilityIdentifier: nil)
+    }
+
+
     // MARK: - Child Controller Wrangling
 
+
+    ///
+    ///
+    func setChildViewController(viewController: UIViewController) {
+        let animated = childViewControllerStack.count > 1
+        childViewControllerStack.removeAll()
+        childViewControllerStack.append(viewController)
+        viewController.view.layoutIfNeeded()
+        pageViewController.setViewControllers([childViewControllerStack.last!],
+            direction: .Reverse,
+            animated: animated,
+            completion: nil)
+    }
+
+
+
+    ///
+    ///
     func pushChildViewController(viewController: UIViewController, animated: Bool) {
         childViewControllerStack.append(viewController)
         viewController.view.layoutIfNeeded()
         pageViewController.setViewControllers([childViewControllerStack.last!],
-            direction: .Forward, animated: animated, completion: nil)
+            direction: .Forward,
+            animated: animated,
+            completion: nil)
         
         configureBackAndCancelButtons(animated)
     }
-    
+
+
+    ///
+    ///
     func popChildViewController(animated: Bool) {
         // Keep at least one child vc. 
         guard childViewControllerStack.count > 1 else {

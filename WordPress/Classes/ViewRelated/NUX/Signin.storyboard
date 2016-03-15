@@ -16,6 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-wp" translatesAutoresizingMaskIntoConstraints="NO" id="aAD-ma-8oD">
+                                <rect key="frame" x="268" y="127" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="5ra-CS-5A8"/>
+                                    <constraint firstAttribute="height" constant="64" id="Z6b-xY-Fhs"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYS-s4-06N">
                                 <rect key="frame" x="562" y="36" width="22" height="22"/>
                                 <accessibility key="accessibilityConfiguration" label="Help"/>
@@ -26,31 +33,6 @@
                                 <state key="normal" image="btn-help"/>
                                 <connections>
                                     <action selector="handleHelpTapped:" destination="Tao-m9-FwL" eventType="touchUpInside" id="sOA-BH-QgC"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-wp" translatesAutoresizingMaskIntoConstraints="NO" id="aAD-ma-8oD">
-                                <rect key="frame" x="268" y="127" width="64" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="5ra-CS-5A8"/>
-                                    <constraint firstAttribute="height" constant="64" id="Z6b-xY-Fhs"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cB1-fT-M12" customClass="WPNUXSecondaryButton">
-                                <rect key="frame" x="228" y="508" width="144" height="30"/>
-                                <state key="normal" title="Add Self-Hosted Site">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="handleToggleSigninTapped:" destination="Tao-m9-FwL" eventType="touchUpInside" id="xpv-d1-XTK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5B-Ix-mpl" customClass="WPNUXSecondaryButton">
-                                <rect key="frame" x="246" y="554" width="107" height="30"/>
-                                <state key="normal" title="Create Account">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="handleCreateAccountTapped:" destination="Tao-m9-FwL" eventType="touchUpInside" id="fnu-n5-18L"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4tu-my-NYR" customClass="WPNUXBackButton">
@@ -88,26 +70,59 @@
                                         <include reference="eH3-Le-W7r"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <segue destination="7pk-r1-N3k" kind="embed" id="t64-7R-4EI"/>
+                                </connections>
                             </containerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WDV-Un-OXt">
+                                <rect key="frame" x="212" y="458" width="176" height="122"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cB1-fT-M12" customClass="WPNUXSecondaryButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="176" height="30"/>
+                                        <state key="normal" title="Sign in to WordPress.com">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleWPComSigninButtonTapped:" destination="Tao-m9-FwL" eventType="touchUpInside" id="e4t-oT-apA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NS2-bq-UFc" customClass="WPNUXSecondaryButton">
+                                        <rect key="frame" x="0.0" y="46" width="176" height="30"/>
+                                        <state key="normal" title="Add Self-Hosted Site">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleSelfHostedSigninButtonTapped:" destination="Tao-m9-FwL" eventType="touchUpInside" id="91B-gA-ff1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5B-Ix-mpl" customClass="WPNUXSecondaryButton">
+                                        <rect key="frame" x="0.0" y="92" width="176" height="30"/>
+                                        <state key="normal" title="Create Account">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="handleCreateAccountTapped:" destination="Tao-m9-FwL" eventType="touchUpInside" id="fnu-n5-18L"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.52941176470588236" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="lYS-s4-06N" secondAttribute="trailing" constant="16" id="628-Zn-Ng2"/>
                             <constraint firstItem="vWC-n1-Jwr" firstAttribute="top" secondItem="fWg-2A-gdx" secondAttribute="bottom" constant="16" id="6pf-sX-1uY"/>
-                            <constraint firstItem="cB1-fT-M12" firstAttribute="centerX" secondItem="or0-7M-vt1" secondAttribute="centerX" id="AW2-f9-fHP"/>
                             <constraint firstAttribute="trailing" secondItem="vLP-Cr-5QN" secondAttribute="trailing" id="ByG-MP-ofx"/>
                             <constraint firstItem="lYS-s4-06N" firstAttribute="top" secondItem="fWg-2A-gdx" secondAttribute="bottom" constant="16" id="DCN-nG-cqb"/>
                             <constraint firstItem="4tu-my-NYR" firstAttribute="top" secondItem="fWg-2A-gdx" secondAttribute="bottom" constant="16" id="EB9-Ut-F89"/>
                             <constraint firstItem="vLP-Cr-5QN" firstAttribute="leading" secondItem="or0-7M-vt1" secondAttribute="leading" id="GeC-7f-XNa"/>
                             <constraint firstItem="vLP-Cr-5QN" firstAttribute="top" secondItem="aAD-ma-8oD" secondAttribute="bottom" constant="8" id="JV4-B5-xV6"/>
-                            <constraint firstItem="bLD-PM-WkM" firstAttribute="top" secondItem="H5B-Ix-mpl" secondAttribute="bottom" constant="16" id="LSV-x0-7Tb"/>
                             <constraint firstItem="aAD-ma-8oD" firstAttribute="centerX" secondItem="or0-7M-vt1" secondAttribute="centerX" id="MFJ-Oc-Vry"/>
                             <constraint firstItem="vLP-Cr-5QN" firstAttribute="centerY" secondItem="or0-7M-vt1" secondAttribute="centerY" id="Uxe-r6-TgV"/>
-                            <constraint firstItem="H5B-Ix-mpl" firstAttribute="centerX" secondItem="or0-7M-vt1" secondAttribute="centerX" id="f3Q-JF-kDg"/>
                             <constraint firstItem="vWC-n1-Jwr" firstAttribute="leading" secondItem="or0-7M-vt1" secondAttribute="leading" constant="8" id="fvl-9Q-3vF"/>
-                            <constraint firstItem="H5B-Ix-mpl" firstAttribute="top" secondItem="cB1-fT-M12" secondAttribute="bottom" constant="16" id="hTE-Am-FDP"/>
+                            <constraint firstItem="bLD-PM-WkM" firstAttribute="top" secondItem="WDV-Un-OXt" secondAttribute="bottom" constant="20" id="h2p-gJ-kLH"/>
                             <constraint firstItem="vLP-Cr-5QN" firstAttribute="centerX" secondItem="or0-7M-vt1" secondAttribute="centerX" id="jNz-iM-acD"/>
+                            <constraint firstItem="WDV-Un-OXt" firstAttribute="centerX" secondItem="or0-7M-vt1" secondAttribute="centerX" id="nxz-Jo-qXz"/>
                             <constraint firstItem="4tu-my-NYR" firstAttribute="leading" secondItem="or0-7M-vt1" secondAttribute="leading" constant="8" id="sgv-ta-oUB"/>
                         </constraints>
                         <variation key="heightClass=regular-widthClass=regular">
@@ -128,9 +143,8 @@
                         <outlet property="cancelButton" destination="vWC-n1-Jwr" id="coa-Ia-R7R"/>
                         <outlet property="containerView" destination="vLP-Cr-5QN" id="jSA-cM-UYU"/>
                         <outlet property="createAccountButton" destination="H5B-Ix-mpl" id="FQz-q6-l6H"/>
-                        <outlet property="helpButton" destination="lYS-s4-06N" id="mQU-y5-z4Q"/>
-                        <outlet property="icon" destination="aAD-ma-8oD" id="OR9-xh-9zl"/>
-                        <outlet property="toggleSigninButton" destination="cB1-fT-M12" id="aC0-a9-sIw"/>
+                        <outlet property="selfHostedSigninButton" destination="NS2-bq-UFc" id="txY-kz-82e"/>
+                        <outlet property="wpcomSigninButton" destination="cB1-fT-M12" id="m8T-sP-kOo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VC9-wI-eDq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,7 +193,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="handleSubmitTapped:" destination="BxT-kY-85j" eventType="touchUpInside" id="BNG-PG-DMc"/>
+                                    <action selector="handleSubmitTapped" destination="BxT-kY-85j" eventType="touchUpInside" id="6GT-9n-8QG"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -226,12 +240,13 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="leftViewImage" value="icon-password-field"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showSecureTextEntryToggle" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="signInButtonTapped" destination="UGr-pL-EXH" eventType="primaryActionTriggered" id="sLZ-nF-JOc"/>
                                     <outlet property="delegate" destination="UGr-pL-EXH" id="huP-XK-s0G"/>
                                 </connections>
                             </textField>
@@ -402,6 +417,14 @@
             </objects>
             <point key="canvasLocation" x="1772" y="232"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="oZR-8j-pyN">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="7pk-r1-N3k" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Zw-MS-2Yq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="899" y="808"/>
+        </scene>
         <!--Signin Link Auth View Controller-->
         <scene sceneID="8Sx-3P-KLB">
             <objects>
@@ -470,10 +493,13 @@
                                             <constraint firstAttribute="height" constant="44" id="Tg0-pp-UMm"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="showSecureTextEntryToggle" value="NO"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="verifyTapped" destination="JZA-07-1tr" eventType="primaryActionTriggered" id="zY3-18-a2i"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhJ-86-brG" customClass="WPNUXMainButton">
                                         <rect key="frame" x="0.0" y="60" width="300" height="41"/>
@@ -542,7 +568,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Username / Email"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="leftViewImage" value="icon-username-field"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showSecureTextEntryToggle" value="NO"/>
@@ -555,7 +581,7 @@
                                 <rect key="frame" x="0.0" y="44" width="300" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showTopLineSeparator" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showSecureTextEntryToggle" value="YES"/>
@@ -569,12 +595,13 @@
                                 <rect key="frame" x="0.0" y="88" width="300" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="URL" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="showTopLineSeparator" value="YES"/>
                                     <userDefinedRuntimeAttribute type="image" keyPath="leftViewImage" value="icon-url-field"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="addSiteTapped" destination="xLQ-dS-eGL" eventType="primaryActionTriggered" id="aIH-1u-Giw"/>
                                     <outlet property="delegate" destination="xLQ-dS-eGL" id="nwg-At-LGk"/>
                                 </connections>
                             </textField>
