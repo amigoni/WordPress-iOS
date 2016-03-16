@@ -902,7 +902,7 @@ class SigninViewController : UIViewController
             comment: "Error message displayed when the user is Signing into a self hosted site and tapped the 1Password Button before typing his siteURL")
 
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-        alertController.addCancelActionWithTitle(NSLocalizedString("Accept", comment: "Accept Button Title"), handler: nil)
+        alertController.addCancelActionWithTitle(NSLocalizedString("OK", comment: "OK Button Title"), handler: nil)
 
         presentViewController(alertController, animated: true, completion: nil)
     }
