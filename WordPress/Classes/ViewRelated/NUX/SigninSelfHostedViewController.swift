@@ -8,10 +8,11 @@ class SigninSelfHostedViewController: UIViewController {
     var signInFailureBlock: SigninFailureBlock?
     
     var email: String!
-    
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var siteURLField: UITextField!
+
+    @IBOutlet var onePasswordButton: UIButton!
+    @IBOutlet weak var emailField: WPWalkthroughTextField!
+    @IBOutlet weak var passwordField: WPWalkthroughTextField!
+    @IBOutlet weak var siteURLField: WPWalkthroughTextField!
     @IBOutlet weak var addSiteButton: WPNUXMainButton!
     
     lazy var loginFacade: LoginFacade = {
@@ -41,12 +42,33 @@ class SigninSelfHostedViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        configureEmailField()
+    }
+
+
+    func configureEmailField() {
         emailField.text = email
+
+        if !OnePasswordFacade().isOnePasswordEnabled() {
+            return
+        }
+
+        onePasswordButton.sizeToFit()
+
+        emailField.rightView = onePasswordButton
+        emailField.rightViewMode = .Always
+        emailField.rightViewPadding = UIOffset(horizontal: 9.0, vertical: 0.0)
     }
 
 
     // MARK: - Actions
+
+    @IBAction func handleOnePasswordButtonTapped(sender: UIButton) {
+        // TODO: Populate fields with credentials from one password if they exist. 
+        
+    }
+
 
     @IBAction func addSiteTapped() {
         view.endEditing(true)

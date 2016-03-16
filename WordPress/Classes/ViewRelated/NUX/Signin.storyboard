@@ -213,10 +213,20 @@
                     <size key="freeformSize" width="320" height="115"/>
                     <connections>
                         <outlet property="emailTextField" destination="Kya-Hp-LGi" id="2WI-Ab-7th"/>
+                        <outlet property="onePasswordButton" destination="y3a-oa-9sd" id="dGU-r0-FCr"/>
                         <outlet property="submitButton" destination="1D2-6S-8E7" id="72q-S9-KZs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7p-aT-8Cw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="y3a-oa-9sd">
+                    <rect key="frame" x="0.0" y="0.0" width="76" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="onepassword-wp-button"/>
+                    <connections>
+                        <action selector="handleOnePasswordButtonTapped:" destination="BxT-kY-85j" eventType="touchUpInside" id="2uU-zE-cbz"/>
+                        <action selector="handleOnePasswordButtonTapped:" destination="xLQ-dS-eGL" eventType="touchUpInside" id="n3C-a7-iAF"/>
+                    </connections>
+                </button>
             </objects>
             <point key="canvasLocation" x="1401" y="53.5"/>
         </scene>
@@ -642,11 +652,20 @@
                     <connections>
                         <outlet property="addSiteButton" destination="mcZ-kV-0Nx" id="Hgc-ji-ZEz"/>
                         <outlet property="emailField" destination="w3n-Hy-xRo" id="PyH-gf-N8v"/>
+                        <outlet property="onePasswordButton" destination="vkX-om-I6Z" id="3Rk-RA-BhA"/>
                         <outlet property="passwordField" destination="vU5-BQ-RWy" id="SIK-eG-0P3"/>
                         <outlet property="siteURLField" destination="Fr5-9a-e8T" id="U1I-bv-z12"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NEw-Z7-Vv8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vkX-om-I6Z">
+                    <rect key="frame" x="0.0" y="0.0" width="76" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="onepassword-wp-button"/>
+                    <connections>
+                        <action selector="handleOnePasswordButtonTapped:" destination="xLQ-dS-eGL" eventType="touchUpInside" id="ft5-qZ-NXF"/>
+                    </connections>
+                </button>
             </objects>
             <point key="canvasLocation" x="2489" y="106"/>
         </scene>
@@ -659,5 +678,6 @@
         <image name="icon-url-field" width="18" height="22"/>
         <image name="icon-username-field" width="18" height="18"/>
         <image name="icon-wp" width="50" height="52"/>
+        <image name="onepassword-wp-button" width="22" height="22"/>
     </resources>
 </document>
