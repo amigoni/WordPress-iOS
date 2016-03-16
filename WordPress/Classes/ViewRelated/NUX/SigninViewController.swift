@@ -27,6 +27,8 @@ class SigninViewController : UIViewController
     var pageViewController: UIPageViewController!
 
     let loginFields = LoginFields()
+    var autofilledUsernameCredentailHash: Int?
+    var autofilledPasswordCredentailHash: Int?
 
     // This key is used with NSUserDefaults to persist an email address while the
     // app is suspended and the mail app is launched.
@@ -737,7 +739,6 @@ class SigninViewController : UIViewController
     }
 
 
-
     ///
     ///
     func pushChildViewController(viewController: UIViewController, animated: Bool) {
@@ -768,4 +769,124 @@ class SigninViewController : UIViewController
             configureBackAndCancelButtons(animated)
         }
     }
+
+
+    // MARK: - Shared Web Credentials
+
+    typealias SharedWebCredentialsCallback = ((username: String?, password: String?) -> Void)
+    typealias SecRequestCompletionHandler = ((credentials: CFArray?, error: CFError?) -> Void)
+
+    var shouldAvoidRequestingSharedCredentials = false
+    let LoginSharedWebCredentialFQDN: CFString = "wordpress.com"
+
+
+    /// Attempt to auto fill credentials.
+    ///
+    func autoFillLoginWithSharedWebCredentialsIfAvailable() {
+        // TODO: Need to show a spinner if this is called as the first step in the login flow.
+        requestSharedWebCredentials { [unowned self] (username, password) -> Void in
+            guard let username = username, password = password else {
+                return
+            }
+
+            // Update the login fields
+            self.loginFields.username = username
+            self.loginFields.password = password
+
+            // Persist credentials as autofilled credentials so we can update them later if needed.
+            self.autofilledUsernameCredentailHash = username.hash
+            self.autofilledPasswordCredentailHash = password.hash
+
+            // TOOD: show the wpcom login form.
+
+
+            WPAppAnalytics.track(WPAnalyticsStat.SafariCredentialsLoginFilled)
+        }
+    }
+
+
+    /// Update safari stored credentials.
+    ///
+    /// - Parameters:
+    ///     - username: 
+    ///     - password:
+    ///
+    func updateAutoFillLoginCredentialsIfNeeded(username: String, password: String) {
+        // Don't try and update credentials for self-hosted.
+        if !loginFields.userIsDotCom {
+            return;
+        }
+
+        // If the user changed screen names, don't try and update/create a new shared web credential.
+        // We'll let Safari handle creating newly saved usernames/passwords.
+        if autofilledUsernameCredentailHash != loginFields.username.hash {
+            return
+        }
+
+        // If the user didn't change the password from previousl filled password no update is needed.
+        if autofilledPasswordCredentailHash == loginFields.password.hash {
+            return
+        }
+
+        // Update the shared credential
+        let username: CFString = loginFields.username
+        let password: CFString = loginFields.password
+
+        SecAddSharedWebCredential(LoginSharedWebCredentialFQDN, username, password, { (error: CFError?) in
+            guard error == nil else {
+                let err = error! as NSError
+                DDLogSwift.logError("Error occurred updating shared web credential: \(err.localizedDescription)");
+                return
+            }
+            dispatch_async(dispatch_get_main_queue(), {
+                WPAppAnalytics.track(WPAnalyticsStat.SafariCredentialsLoginUpdated)
+            })
+        })
+    }
+
+
+    /// Request shared safari credentials if they exist.
+    ///
+    /// - Parameters:
+    ///     - completion: A completion block.
+    ///
+    func requestSharedWebCredentials(completion: SharedWebCredentialsCallback) {
+        if shouldAvoidRequestingSharedCredentials {
+            return
+        }
+
+        shouldAvoidRequestingSharedCredentials = true
+        SecRequestSharedWebCredential(LoginSharedWebCredentialFQDN, nil, { (credentials: CFArray?, error: CFError?) in
+
+            guard error == nil else {
+                let err = error! as NSError
+                DDLogSwift.logError("Completed requesting shared web credentials with: \(err.localizedDescription)")
+                dispatch_async(dispatch_get_main_queue(), {
+                    completion(username: nil, password: nil)
+                })
+                return
+            }
+
+            guard let credentials = credentials where CFArrayGetCount(credentials) > 0 else {
+                // Did not find a shared web credential.
+                return
+            }
+
+            // What a chore!
+            let unsafeCredentials = CFArrayGetValueAtIndex(credentials, 0)
+            let credentialsDict = unsafeBitCast(unsafeCredentials, CFDictionaryRef.self)
+
+            let unsafeUsername = CFDictionaryGetValue(credentialsDict, unsafeAddressOf(kSecAttrAccount))
+            let usernameStr = unsafeBitCast(unsafeUsername, CFString.self) as String
+
+            let unsafePassword = CFDictionaryGetValue(credentialsDict, unsafeAddressOf(kSecSharedPassword))
+            let passwordStr = unsafeBitCast(unsafePassword, CFString.self) as String
+
+            dispatch_async(dispatch_get_main_queue(), {
+                completion(username: usernameStr, password: passwordStr)
+            })
+        })
+
+    }
+
 }
