@@ -64,6 +64,8 @@ class SigninViewController : UIViewController
         configureBackAndCancelButtons(false)
 
         presentWPComSigninFlow()
+
+        autoFillLoginWithSharedWebCredentialsIfAvailable()
     }
     
 
@@ -885,6 +887,65 @@ class SigninViewController : UIViewController
             dispatch_async(dispatch_get_main_queue(), {
                 completion(username: usernameStr, password: passwordStr)
             })
+        })
+
+    }
+
+
+    //MARK: - 1Password Support
+
+
+    /// Displays an alert prompting that a site address is needed before 1Password can be used.
+    ///
+    func displayOnePasswordEmptySiteAlert() {
+        let message = NSLocalizedString("A site address is required before 1Password can be used.",
+            comment: "Error message displayed when the user is Signing into a self hosted site and tapped the 1Password Button before typing his siteURL")
+
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+        alertController.addCancelActionWithTitle(NSLocalizedString("Accept", comment: "Accept Button Title"), handler: nil)
+
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+
+
+    /// Handle a one password request.
+    ///
+    /// - Parameters:
+    ///     - sender: A UIView. Typically the button the user tapped on.
+    ///
+    func handleOnePasswordButtonTapped(sender: UIView) {
+        view.endEditing(true)
+
+        if loginFields.userIsDotCom == false && loginFields.siteUrl.isEmpty {
+            displayOnePasswordEmptySiteAlert()
+            return
+        }
+
+        let loginURL = loginFields.userIsDotCom ? "wordpress.com" : loginFields.siteUrl
+
+        let onePasswordFacade = OnePasswordFacade()
+        onePasswordFacade.findLoginForURLString(loginURL, viewController: self, sender: sender, completion: { (username: String!, password: String!, oneTimePassword: String!, error: NSError!) in
+            guard error == nil else {
+                DDLogSwift.logError("OnePassword Error: \(error.localizedDescription)")
+                WPAppAnalytics.track(.OnePasswordFailed)
+                return
+            }
+
+            guard let username = username, password = password else {
+                return
+            }
+
+            if username.characters.count == 0 || password.characters.count == 0 {
+                return
+            }
+
+            self.loginFields.username = username
+            self.loginFields.password = password
+            self.loginFields.multifactorCode = oneTimePassword
+
+            WPAppAnalytics.track(.OnePasswordLogin)
+
+            // TODO: sign in
         })
 
     }
