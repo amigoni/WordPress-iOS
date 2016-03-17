@@ -1,6 +1,7 @@
 import UIKit
 import NSURL_IDN
 import WordPressComAnalytics
+import WordPressShared
 import wpxmlrpc
 
 enum SigninFailureError: ErrorType {
@@ -24,6 +25,7 @@ class SigninViewController : UIViewController
     @IBOutlet var wpcomSigninButton: UIButton!
     @IBOutlet var selfHostedSigninButton: UIButton!
     @IBOutlet var createAccountButton: UIButton!
+    @IBOutlet var helpBadge: WPNUXHelpBadgeLabel!
     var pageViewController: UIPageViewController!
 
     let loginFields = LoginFields()
@@ -54,6 +56,10 @@ class SigninViewController : UIViewController
 
     // MARK: - Lifecycle Methods
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -63,14 +69,28 @@ class SigninViewController : UIViewController
         cancelButton.sizeToFit()
         configureBackAndCancelButtons(false)
 
+        configureHelpshift()
+
         presentWPComSigninFlow()
 
         autoFillLoginWithSharedWebCredentialsIfAvailable()
     }
     
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        HelpshiftUtils.refreshUnreadNotificationCount()
+    }
+
+
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+    }
+
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIDevice.isPad() ? .All : .Portrait
     }
 
 
@@ -123,6 +143,21 @@ class SigninViewController : UIViewController
         createAccountButton.hidden = false
 
         showSigninLinkRequestViewController("")
+    }
+
+
+    ///
+    ///
+    func configureHelpshift() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("handleHelpshiftUnreadCountUpdated:"), name: HelpshiftUnreadCountUpdatedNotification, object: nil)
+
+        helpBadge.layer.masksToBounds = true
+        helpBadge.layer.cornerRadius = 6
+        helpBadge.textAlignment = .Center
+        helpBadge.backgroundColor = UIColor(fromHex: 0xdd3d36, alpha: 1.0)
+        helpBadge.textColor = UIColor.whiteColor()
+        helpBadge.font = WPFontManager.systemRegularFontOfSize(8.0)
+        helpBadge.hidden = true
     }
 
 
@@ -491,6 +526,18 @@ class SigninViewController : UIViewController
 
     func signinWithPassword(email: String) {
         showSigninPasswordViewController(email)
+    }
+
+
+    // MARK: - Notifications
+
+
+    /// Updates the badge count and its visibility.
+    ///
+    func handleHelpshiftUnreadCountUpdated(notification: NSNotification) {
+        let count = HelpshiftUtils.unreadNotificationCount()
+        helpBadge.text = "\(count)"
+        helpBadge.hidden = (count == 0)
     }
 
 

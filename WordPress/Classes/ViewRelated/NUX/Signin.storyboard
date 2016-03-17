@@ -106,6 +106,17 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c4V-h8-wse" customClass="WPNUXHelpBadgeLabel">
+                                <rect key="frame" x="577" y="30" width="12" height="10"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="R2L-BP-Ctx"/>
+                                    <constraint firstAttribute="width" constant="12" id="ab8-Qs-yvk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.52941176470588236" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -117,8 +128,10 @@
                             <constraint firstItem="4tu-my-NYR" firstAttribute="top" secondItem="fWg-2A-gdx" secondAttribute="bottom" constant="16" id="EB9-Ut-F89"/>
                             <constraint firstItem="vLP-Cr-5QN" firstAttribute="leading" secondItem="or0-7M-vt1" secondAttribute="leading" id="GeC-7f-XNa"/>
                             <constraint firstItem="vLP-Cr-5QN" firstAttribute="top" secondItem="aAD-ma-8oD" secondAttribute="bottom" constant="8" id="JV4-B5-xV6"/>
+                            <constraint firstItem="c4V-h8-wse" firstAttribute="centerY" secondItem="lYS-s4-06N" secondAttribute="centerY" constant="-12" id="Laq-TY-TuI"/>
                             <constraint firstItem="aAD-ma-8oD" firstAttribute="centerX" secondItem="or0-7M-vt1" secondAttribute="centerX" id="MFJ-Oc-Vry"/>
                             <constraint firstItem="vLP-Cr-5QN" firstAttribute="centerY" secondItem="or0-7M-vt1" secondAttribute="centerY" id="Uxe-r6-TgV"/>
+                            <constraint firstItem="c4V-h8-wse" firstAttribute="centerX" secondItem="lYS-s4-06N" secondAttribute="centerX" constant="10" id="ePj-Q8-y6T"/>
                             <constraint firstItem="vWC-n1-Jwr" firstAttribute="leading" secondItem="or0-7M-vt1" secondAttribute="leading" constant="8" id="fvl-9Q-3vF"/>
                             <constraint firstItem="bLD-PM-WkM" firstAttribute="top" secondItem="WDV-Un-OXt" secondAttribute="bottom" constant="20" id="h2p-gJ-kLH"/>
                             <constraint firstItem="vLP-Cr-5QN" firstAttribute="centerX" secondItem="or0-7M-vt1" secondAttribute="centerX" id="jNz-iM-acD"/>
@@ -143,6 +156,7 @@
                         <outlet property="cancelButton" destination="vWC-n1-Jwr" id="coa-Ia-R7R"/>
                         <outlet property="containerView" destination="vLP-Cr-5QN" id="jSA-cM-UYU"/>
                         <outlet property="createAccountButton" destination="H5B-Ix-mpl" id="FQz-q6-l6H"/>
+                        <outlet property="helpBadge" destination="c4V-h8-wse" id="Z88-0o-HHZ"/>
                         <outlet property="selfHostedSigninButton" destination="NS2-bq-UFc" id="txY-kz-82e"/>
                         <outlet property="wpcomSigninButton" destination="cB1-fT-M12" id="m8T-sP-kOo"/>
                     </connections>
