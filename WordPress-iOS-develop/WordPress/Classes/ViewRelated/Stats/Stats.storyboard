@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Jetpack Settings View Controller-->
+        <scene sceneID="ycz-CK-0mt">
+            <objects>
+                <viewController storyboardIdentifier="JetpackSettingsViewControllerNew" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hrA-cw-wN5" customClass="JetpackSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OUT-hG-o39"/>
+                        <viewControllerLayoutGuide type="bottom" id="Y6v-74-Iia"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gZ4-ha-8iO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2ut-8i-F4V" userLabel="skipButton" customClass="WPNUXSecondaryButton">
+                                <rect key="frame" x="560" y="560" width="30" height="30"/>
+                                <state key="normal" title="Skip"/>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Lw-Sl-755">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3F9-NQ-qew" userLabel="contentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Rp7-qP-7n7">
+                                                <rect key="frame" x="140" y="30" width="320" height="490"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="center" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LXf-8G-5Nr">
+                                                        <rect key="frame" x="16" y="0.0" width="289" height="158"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="icon-jetpack-gray" translatesAutoresizingMaskIntoConstraints="NO" id="2cE-n6-DRi" userLabel="icon">
+                                                                <rect key="frame" x="108" y="0.0" width="73" height="90"/>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Hold the web in the palm of your hand. Full publishing power in a pint-sized package." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bp-YR-Jgh" userLabel="descriptionLabel">
+                                                                <rect key="frame" x="0.0" y="98" width="289" height="60"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="289" id="U6x-Kc-ti1"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="1bp-YR-Jgh" firstAttribute="centerX" secondItem="LXf-8G-5Nr" secondAttribute="centerX" id="3bA-Cs-MlW"/>
+                                                            <constraint firstItem="1bp-YR-Jgh" firstAttribute="leading" secondItem="LXf-8G-5Nr" secondAttribute="leading" constant="10" id="9Yc-az-d79"/>
+                                                            <constraint firstItem="2cE-n6-DRi" firstAttribute="centerX" secondItem="LXf-8G-5Nr" secondAttribute="centerX" id="XcN-8j-yBV"/>
+                                                            <constraint firstAttribute="trailing" secondItem="1bp-YR-Jgh" secondAttribute="trailing" id="dga-C0-l7C"/>
+                                                            <constraint firstAttribute="trailing" secondItem="1bp-YR-Jgh" secondAttribute="trailing" constant="10" id="jUn-Dt-d9y"/>
+                                                            <constraint firstItem="1bp-YR-Jgh" firstAttribute="leading" secondItem="LXf-8G-5Nr" secondAttribute="leading" id="ny2-eR-I0T"/>
+                                                        </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="3bA-Cs-MlW"/>
+                                                                <exclude reference="9Yc-az-d79"/>
+                                                                <exclude reference="dga-C0-l7C"/>
+                                                                <exclude reference="jUn-Dt-d9y"/>
+                                                                <exclude reference="ny2-eR-I0T"/>
+                                                                <exclude reference="XcN-8j-yBV"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4U-Vw-352" userLabel="installJetpackButton" customClass="WPNUXMainButton">
+                                                        <rect key="frame" x="16" y="174" width="289" height="41"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="289" id="DDB-Jp-Bcb"/>
+                                                            <constraint firstAttribute="height" constant="41" id="cyK-Qe-fPd"/>
+                                                        </constraints>
+                                                        <state key="normal" title="install jetpack"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6e-Fy-N3E" userLabel="moreInformationButton">
+                                                        <rect key="frame" x="16" y="231" width="289" height="41"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="289" id="4e6-n4-oby"/>
+                                                            <constraint firstAttribute="height" constant="41" id="QG5-be-EpZ"/>
+                                                        </constraints>
+                                                        <state key="normal" title="more info"/>
+                                                    </button>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Hwe-mm-aez">
+                                                        <rect key="frame" x="0.0" y="288" width="320" height="88"/>
+                                                        <subviews>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="WordPress.com username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mda-1P-vBW" userLabel="usernameTextField" customClass="WPWalkthroughTextField">
+                                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="44" id="Xjx-La-HQY"/>
+                                                                    <constraint firstAttribute="width" constant="320" id="gci-Rf-unq"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                            </textField>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="WordPress.com password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D0j-A1-YTZ" userLabel="passwordTextField" customClass="WPWalkthroughTextField">
+                                                                <rect key="frame" x="0.0" y="44" width="320" height="44"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="44" id="Q7M-7m-wPN"/>
+                                                                    <constraint firstAttribute="width" constant="320" id="sHP-jN-5M0"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                            </textField>
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Wordpress.com multifactor" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dd9-Fa-C8A" userLabel="multifactorTextField" customClass="WPWalkthroughTextField">
+                                                                <rect key="frame" x="0.0" y="88" width="320" height="0.0"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" id="geh-Ni-zWD"/>
+                                                                    <constraint firstAttribute="width" constant="320" id="yQW-Rm-gDx"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <textInputTraits key="textInputTraits"/>
+                                                            </textField>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YbO-aG-1hV" userLabel="signInButton" customClass="WPNUXMainButton">
+                                                        <rect key="frame" x="16" y="392" width="289" height="41"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="289" id="BXD-Tc-JPe"/>
+                                                            <constraint firstAttribute="height" constant="41" id="azw-0U-cOr"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Sign In"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdV-Ff-Iib" userLabel="sendVerificationCodeButton">
+                                                        <rect key="frame" x="16" y="449" width="289" height="41"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="41" id="Kip-fL-hUP"/>
+                                                            <constraint firstAttribute="width" constant="289" id="jYF-J5-nJ6"/>
+                                                        </constraints>
+                                                        <state key="normal" title="send verification"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="LXf-8G-5Nr" firstAttribute="leading" secondItem="Rp7-qP-7n7" secondAttribute="leading" id="BdL-ZV-RD6"/>
+                                                    <constraint firstItem="DdV-Ff-Iib" firstAttribute="centerX" secondItem="Rp7-qP-7n7" secondAttribute="centerX" id="EpF-u4-Isp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="LXf-8G-5Nr" secondAttribute="trailing" id="KTH-L4-7fa"/>
+                                                    <constraint firstItem="YbO-aG-1hV" firstAttribute="centerX" secondItem="Rp7-qP-7n7" secondAttribute="centerX" id="O9Q-hK-ykF"/>
+                                                    <constraint firstItem="W4U-Vw-352" firstAttribute="centerX" secondItem="Rp7-qP-7n7" secondAttribute="centerX" id="Vdn-qp-WJ3"/>
+                                                    <constraint firstItem="LXf-8G-5Nr" firstAttribute="centerX" secondItem="Rp7-qP-7n7" secondAttribute="centerX" id="fdM-mW-lzq"/>
+                                                    <constraint firstItem="LXf-8G-5Nr" firstAttribute="centerX" secondItem="Rp7-qP-7n7" secondAttribute="centerX" id="grh-t4-MZW"/>
+                                                    <constraint firstItem="b6e-Fy-N3E" firstAttribute="centerX" secondItem="Rp7-qP-7n7" secondAttribute="centerX" id="gtS-aI-ewC"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="BdL-ZV-RD6"/>
+                                                        <exclude reference="KTH-L4-7fa"/>
+                                                        <exclude reference="fdM-mW-lzq"/>
+                                                        <exclude reference="grh-t4-MZW"/>
+                                                        <exclude reference="Vdn-qp-WJ3"/>
+                                                        <exclude reference="gtS-aI-ewC"/>
+                                                        <exclude reference="O9Q-hK-ykF"/>
+                                                        <exclude reference="EpF-u4-Isp"/>
+                                                    </mask>
+                                                </variation>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Rp7-qP-7n7" firstAttribute="centerX" secondItem="3F9-NQ-qew" secondAttribute="centerX" id="BHw-C6-c4B"/>
+                                            <constraint firstItem="Rp7-qP-7n7" firstAttribute="centerY" secondItem="3F9-NQ-qew" secondAttribute="centerY" id="HPn-am-aeW"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Rp7-qP-7n7" secondAttribute="bottom" id="SAG-lg-DRI"/>
+                                            <constraint firstItem="Rp7-qP-7n7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="3F9-NQ-qew" secondAttribute="top" id="aPl-2c-oLO"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="3F9-NQ-qew" firstAttribute="height" relation="greaterThanOrEqual" secondItem="6Lw-Sl-755" secondAttribute="height" id="8ne-zu-tiH"/>
+                                    <constraint firstAttribute="bottom" secondItem="3F9-NQ-qew" secondAttribute="bottom" id="Dmq-vb-DM2"/>
+                                    <constraint firstItem="3F9-NQ-qew" firstAttribute="width" secondItem="6Lw-Sl-755" secondAttribute="width" id="JXd-3i-zB4"/>
+                                    <constraint firstAttribute="trailing" secondItem="3F9-NQ-qew" secondAttribute="trailing" id="OSS-kA-w62"/>
+                                    <constraint firstItem="3F9-NQ-qew" firstAttribute="leading" secondItem="6Lw-Sl-755" secondAttribute="leading" id="VmJ-E4-rkw"/>
+                                    <constraint firstItem="3F9-NQ-qew" firstAttribute="top" secondItem="6Lw-Sl-755" secondAttribute="top" id="v3B-bt-Xe3"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6Lw-Sl-755" firstAttribute="top" secondItem="OUT-hG-o39" secondAttribute="bottom" id="61S-qb-PJY"/>
+                            <constraint firstAttribute="trailing" secondItem="2ut-8i-F4V" secondAttribute="trailing" constant="10" id="6V0-MJ-nZJ"/>
+                            <constraint firstItem="Y6v-74-Iia" firstAttribute="top" secondItem="2ut-8i-F4V" secondAttribute="bottom" constant="10" id="KaD-fp-9DM"/>
+                            <constraint firstAttribute="trailing" secondItem="6Lw-Sl-755" secondAttribute="trailing" id="Vqn-Pn-wEM"/>
+                            <constraint firstItem="Y6v-74-Iia" firstAttribute="top" secondItem="6Lw-Sl-755" secondAttribute="bottom" id="aLC-ta-ZdH"/>
+                            <constraint firstItem="6Lw-Sl-755" firstAttribute="leading" secondItem="gZ4-ha-8iO" secondAttribute="leading" id="m26-vY-sBM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="3F9-NQ-qew" id="xqP-MF-C69"/>
+                        <outlet property="descriptionLabel" destination="1bp-YR-Jgh" id="iX2-L4-8lt"/>
+                        <outlet property="icon" destination="2cE-n6-DRi" id="Dwc-Ak-zSS"/>
+                        <outlet property="installJetpackButton" destination="W4U-Vw-352" id="8DM-VP-h2y"/>
+                        <outlet property="moreInformationButton" destination="b6e-Fy-N3E" id="J5H-77-rhM"/>
+                        <outlet property="multifactorTextField" destination="Dd9-Fa-C8A" id="dH0-j1-ii1"/>
+                        <outlet property="passwordTextField" destination="D0j-A1-YTZ" id="8pz-uN-k6z"/>
+                        <outlet property="scrollView" destination="6Lw-Sl-755" id="QjN-3U-MAX"/>
+                        <outlet property="sendVerificationCodeButton" destination="DdV-Ff-Iib" id="BLy-5y-OS4"/>
+                        <outlet property="signInButton" destination="YbO-aG-1hV" id="jUY-iA-tMa"/>
+                        <outlet property="skipButton" destination="2ut-8i-F4V" id="b5Z-I7-w5A"/>
+                        <outlet property="usernameTextField" destination="mda-1P-vBW" id="AnR-ad-Bfd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OPZ-u3-J3G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="362" y="356"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icon-jetpack-gray" width="73" height="90"/>
+    </resources>
+</document>

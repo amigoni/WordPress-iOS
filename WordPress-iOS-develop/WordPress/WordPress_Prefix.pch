@@ -1,0 +1,51 @@
+//
+// Prefix header for all source files of the 'WordPress' target in the 'WordPress' project
+//
+
+#ifdef __OBJC__
+	// Core Frameworks
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+	#import <CoreLocation/CoreLocation.h>
+	#import <CoreData/CoreData.h>
+    #import <SystemConfiguration/SystemConfiguration.h>
+    #import <MobileCoreServices/MobileCoreServices.h>
+
+	// 3rd Party
+    #import <AFNetworking/AFNetworking.h>
+	#import <CocoaLumberjack/CocoaLumberjack.h>
+    #import <NSObject_SafeExpectations/NSObject+SafeExpectations.h>
+    #import <WordPressComAnalytics/WPAnalytics.h>
+    #import <WordPressShared/WPStyleGuide.h>
+
+	// Project-specific
+    #import "WPStyleGuide+ReadableMargins.h"
+    #import "NSString+Util.h"
+    #import "WPError.h"
+    #import "UIColor+Helpers.h"
+    #import "WPMapFilterReduce.h"
+
+#ifndef IS_IPAD
+#define IS_IPAD   ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
+#endif
+#ifndef IS_IPHONE
+#define IS_IPHONE   (!IS_IPAD)
+#endif
+#ifndef IS_RETINA
+#define IS_RETINA ([[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2)
+#endif
+
+#ifndef WPCOM_SCHEME
+#warning WPCOM_SCHEME is not defined for this target configuration! Defaulting to "wordpress".
+#define WPCOM_SCHEME @"wordpress"
+#endif
+
+#define AssertSubclassMethod() NSAssert(NO, @"You must override %@ in a subclass", NSStringFromSelector(_cmd))
+
+#define DDLogMethod() DDLogInfo(@"%@ %@", self, NSStringFromSelector(_cmd));
+#define DDLogMethodParam(param) DDLogInfo(@"%@ %@%@", self, NSStringFromSelector(_cmd), param);
+
+// CocoaLumberjack Default Logging Level
+extern int ddLogLevel;
+
+#endif
