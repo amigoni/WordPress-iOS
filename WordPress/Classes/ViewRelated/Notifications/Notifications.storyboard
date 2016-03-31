@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="MbC-cA-c9S">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <scenes>
+        <!--Notification List Controller-->
+        <scene sceneID="vDn-Eb-UHK">
+            <objects>
+                <tableViewController storyboardIdentifier="NotificationsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MbC-cA-c9S" userLabel="Notification List Controller" customClass="NotificationsViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="dwB-H6-MqD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="MbC-cA-c9S" id="6Te-r4-8TI"/>
+                            <outlet property="delegate" destination="MbC-cA-c9S" id="DvP-Ny-5nk"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="xj3-6N-2Jy" kind="push" identifier="ReaderPostDetailViewController" id="4ec-Ni-5a5"/>
+                        <segue destination="veA-Pg-QAw" kind="push" identifier="NotificationDetailsViewController" id="Wf0-ec-EMc"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tfv-il-pov" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="236" y="-556"/>
+        </scene>
+        <!--Reader Comments View Controller-->
+        <scene sceneID="RLS-eH-qVH">
+            <objects>
+                <viewController id="kOE-dH-qnb" customClass="ReaderCommentsViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="eaw-kn-CXc"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="59U-6R-KoD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573" y="-1877"/>
+        </scene>
+        <!--Reader Post Details-->
+        <scene sceneID="ET8-9p-ZLz">
+            <objects>
+                <tableViewController id="xj3-6N-2Jy" userLabel="Reader Post Details" customClass="ReaderPostDetailViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="sWj-Rg-m3q"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h51-jr-fqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573" y="-1203"/>
+        </scene>
+        <!--WebView-->
+        <scene sceneID="1zS-D4-F1Z">
+            <objects>
+                <viewController id="Bbj-DX-KQ7" userLabel="WebView" customClass="WPWebViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Ggf-4b-Gwr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fEj-cd-uMn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573" y="-556"/>
+        </scene>
+        <!--Notification Details-->
+        <scene sceneID="0B7-mU-JSs">
+            <objects>
+                <viewController storyboardIdentifier="NotificationDetailsViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="veA-Pg-QAw" userLabel="Notification Details" customClass="NotificationDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8gl-SX-x5I"/>
+                        <viewControllerLayoutGuide type="bottom" id="6LW-NS-qSh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lvM-1n-Dgf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dcn-Il-AtN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <gestureRecognizers/>
+                                <inset key="separatorInset" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="veA-Pg-QAw" id="VzN-sT-2Co"/>
+                                    <outlet property="delegate" destination="veA-Pg-QAw" id="s6c-EK-4wV"/>
+                                    <outletCollection property="gestureRecognizers" destination="a20-Yr-RdT" appends="YES" id="9kS-tn-Ero"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6LW-NS-qSh" firstAttribute="top" secondItem="Dcn-Il-AtN" secondAttribute="bottom" priority="250" id="9mt-16-fFT"/>
+                            <constraint firstItem="Dcn-Il-AtN" firstAttribute="leading" secondItem="lvM-1n-Dgf" secondAttribute="leading" id="EDd-eL-C3N"/>
+                            <constraint firstItem="Dcn-Il-AtN" firstAttribute="top" secondItem="lvM-1n-Dgf" secondAttribute="top" id="VrG-Fy-A84"/>
+                            <constraint firstAttribute="trailing" secondItem="Dcn-Il-AtN" secondAttribute="trailing" id="eJA-A9-B0Q"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="gVZ-cy-2mc"/>
+                    <connections>
+                        <outlet property="tableGesturesRecognizer" destination="a20-Yr-RdT" id="Ap0-WK-Z2n"/>
+                        <outlet property="tableView" destination="Dcn-Il-AtN" id="Mjf-q7-Lkn"/>
+                        <segue destination="8p8-88-FGK" kind="push" identifier="StatsViewController" id="EAn-K1-ofm"/>
+                        <segue destination="Bbj-DX-KQ7" kind="push" identifier="WPWebViewController" id="ygK-a3-WEJ"/>
+                        <segue destination="xj3-6N-2Jy" kind="push" identifier="ReaderPostDetailViewController" id="ODX-zz-S1G"/>
+                        <segue destination="kOE-dH-qnb" kind="push" identifier="ReaderCommentsViewController" id="Puk-pn-rGi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jzQ-hT-Ajt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer enabled="NO" delaysTouchesBegan="YES" delaysTouchesEnded="NO" id="a20-Yr-RdT">
+                    <connections>
+                        <action selector="dismissKeyboardIfNeeded:" destination="veA-Pg-QAw" id="HU5-W6-6xc"/>
+                        <outlet property="delegate" destination="veA-Pg-QAw" id="L3M-88-aeP"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="925" y="-601"/>
+        </scene>
+        <!--StatsView-->
+        <scene sceneID="iWL-VB-TOS">
+            <objects>
+                <viewController id="8p8-88-FGK" userLabel="StatsView" customClass="StatsViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Emb-tQ-YvX"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KeQ-Nv-SGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1573" y="141"/>
+        </scene>
+    </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="ODX-zz-S1G"/>
+    </inferredMetricsTieBreakers>
+</document>
